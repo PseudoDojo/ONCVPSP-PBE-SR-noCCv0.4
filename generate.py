@@ -30,43 +30,80 @@ nb = len(elements)
 #    os.system('cd '+str(elements[ii])+'/ && sed -i \'s/psp8/both/g\' '+str(elements[ii])+'-spd-high.in && sed -i \'/icmod/{n;s/.*/0 0 0/}\' '+str(elements[ii])+'-spd-high.in && cd ../')
 
 # Run and copy
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'.in')):  
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'.upf && cd ../' )
-#
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-sp.in')):  
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-sp.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-sp.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-sp.upf && cd ../' )
-#
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-spd.in')):  
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-spd.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-spd.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-spd.upf && cd ../' )
-#
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-fsp.in')): 
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-fsp.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-fsp.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-fsp.upf && cd ../' )
-#
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-d.in')):
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-d.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-d.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-d.upf && cd ../' )
-#
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-low.in')):
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-low.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-low.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-low.upf && cd ../' )
-#
-#for ii in np.arange(nb):
-#    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-high.in')):
-#      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-high.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-high.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-high.upf && cd ../' )
+for ii in np.arange(nb):
+    input = str(elements[ii])+'.in'
+    output = str(elements[ii])+'.out'
+    psp8 = str(elements[ii])+'.psp8'
+    upf = str(elements[ii])+'.upf' 
+    if (os.path.isfile(str(elements[ii])+'/'+input)):  
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+
+for ii in np.arange(nb):
+    input = str(elements[ii])+'-sp.in'
+    output = str(elements[ii])+'-sp.out'
+    psp8 = str(elements[ii])+'-sp.psp8'
+    upf = str(elements[ii])+'-sp.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+
+for ii in np.arange(nb):
+    input = str(elements[ii])+'-spd.in'
+    output = str(elements[ii])+'-spd.out'
+    psp8 = str(elements[ii])+'-spd.psp8'
+    upf = str(elements[ii])+'-spd.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+
+for ii in np.arange(nb):
+    input = str(elements[ii])+'-fsp.in'
+    output = str(elements[ii])+'-fsp.out'
+    psp8 = str(elements[ii])+'-fsp.psp8'
+    upf = str(elements[ii])+'-fsp.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+
+for ii in np.arange(nb):
+    input = str(elements[ii])+'-d.in'
+    output = str(elements[ii])+'-d.out'
+    psp8 = str(elements[ii])+'-d.psp8'
+    upf = str(elements[ii])+'-d.upf'
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+    
+for ii in np.arange(nb):
+    input = str(elements[ii])+'-low.in'
+    output = str(elements[ii])+'-low.out'
+    psp8 = str(elements[ii])+'-low.psp8'
+    upf = str(elements[ii])+'-low.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+
+for ii in np.arange(nb):
+    input = str(elements[ii])+'-high.in'
+    output = str(elements[ii])+'-high.out'
+    psp8 = str(elements[ii])+'-high.psp8'
+    upf = str(elements[ii])+'-high.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
 
 
 for ii in np.arange(nb):
-    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-sp-high.in')):
-      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-sp-high.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-sp-high.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-sp-high.upf && cd ../' )
+    input = str(elements[ii])+'-sp-high.in'
+    output = str(elements[ii])+'-sp-high.out'
+    psp8 = str(elements[ii])+'-sp-high.psp8'
+    upf = str(elements[ii])+'-sp-high.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
 
 
 for ii in np.arange(nb):
-    if (os.path.isfile(str(elements[ii])+'/'+str(elements[ii])+'-spd-high.in')):
-      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+str(elements[ii])+'-spd-high.in > out && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' out > '+str(elements[ii])+'-spd-high.psp8 &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' out >  '+str(elements[ii])+'-spd-high.upf && cd ../' )
+    input = str(elements[ii])+'-spd-high.in'
+    output = str(elements[ii])+'-spd-high.out'
+    psp8 = str(elements[ii])+'-spd-high.psp8'
+    upf = str(elements[ii])+'-spd-high.upf'    
+    if (os.path.isfile(str(elements[ii])+'/'+input)):
+      os.system('cd '+str(elements[ii])+'/ && /home/ponce/Dropbox/program/oncvpsp-3.3.0/src/oncvpsp.x < '+input+' > '+output+' && awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSPCODE8/{out=1}\' '+output+' > '+psp8+' &&  awk \'BEGIN{out=0};/END_PSP/{out=0} {if(out == 1) {print}};/PSP_UPF/{out=1}\' '+output+' >  '+upf+' && cd ../' )
+
 
 
 
